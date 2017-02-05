@@ -1,0 +1,6 @@
+﻿  firstsfml.cpp
+c:\users\aaron\desktop\physics done\firstsfml\firstsfml\firstsfml.cpp(135): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\aaron\desktop\physics done\firstsfml\firstsfml\firstsfml.cpp(161): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\aaron\desktop\physics done\firstsfml\firstsfml\firstsfml.cpp(163): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  firstsfml.vcxproj -> C:\Users\aaron\Desktop\Physics done\firstsfml\Debug\firstsfml.exe
+  firstsfml.vcxproj -> C:\Users\aaron\Desktop\Physics done\firstsfml\Debug\firstsfml.pdb (Full PDB)
