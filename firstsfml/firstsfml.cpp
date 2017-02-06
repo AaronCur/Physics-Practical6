@@ -1,5 +1,6 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include <math.h>
 
 using namespace std;
 
@@ -14,11 +15,13 @@ int main()
 	float initialVelocityY = 0.0f;
 	float initialVelocityX = 0.0f;
 	
+
 	float distanceX = 0.0f;
 	float distanceY = 0.0f;
 	float maxHeight = 0.0f;
 	float maxDistance = 0.0f;
-	
+	float degrees = 0.0f;
+	float radians = 0.0f;
 	
 	bool printHeight = false;
 	bool timing = false;
@@ -53,7 +56,7 @@ int main()
 	float pixelsToMeters = 20;
 	sf::Vector2f gravity(0.0f, 9.8f*pixelsToMeters);
 	sf::Vector2f acceleration(0.0f, 0.0f);
-
+	sf::Vector2f velocityRes(0.0f, 0.0f);
 	
 	
 	//Load font
@@ -81,6 +84,7 @@ int main()
 				window.close();
 		}
 		
+		
 
 	
 		//get the time since last update and restart the clock
@@ -91,24 +95,61 @@ int main()
 
 		if (timeSinceLastUpdate > timePerFrame)
 		{
-			/*if (sf::Keyboard::isKeyPressed(sf::Keyboard::R))
+			/*velocityRes = sqrt((initialVelocityX * initialVelocityX) + (initialVelocityY * initialVelocityY));
+
+			radians = atan2(initialVelocityX, initialVelocityY);
+			degrees = (radians * (180 / 3.14159265359) - 90);
+
+			
+			*/
+
+			radians = atan2(velocityRes.x, velocityRes.y);
+			degrees = (radians * (180 / 3.14159265359) - 90);
+
+			velocityRes.y = degrees * atan (initialVelocityY);
+			velocityRes.x = degrees * atan(initialVelocityY);
+
+			if (degrees > 0)
 			{
-				initialVelocityY = 0;
-				initialVelocityX = 0;
-				velocity.x = 0;
+				std::cout << "Angle" << degrees << std::endl;
+			}
+			
+
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::R))
+			{
 				velocity.y = 0;
-				initialPosition.x = position.x;
-				initialPosition.y = position.y;
-			}*/
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Y) )
+				velocity.x = 0;
+				position.x = 150;
+				position.y = 398;
+			}
+			/*if (sf::Keyboard::isKeyPressed(sf::Keyboard::Y) )
 			{
 				initialVelocityY--;
 				
+			}*/
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Y))
+			{
+				degrees++;
+
+			}
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::U))
+			{
+				degrees--;
+
 			}
 
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::X))
 			{
 				initialVelocityX++;
+			}
+
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::V))
+			{
+				velocityRes++;
+			}
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::B))
+			{
+				velocityRes--;
 			}
 			
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && position.y >= 398 && timing == false && bounce == false )
@@ -142,7 +183,11 @@ int main()
 				}
 				
 			}
-			
+			if (position.y >= 402)
+			{
+				bounce = false;
+				position.y = 398;
+			}
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::X) && position.x >= 0 && position.x < 800 && slideRight == false && position.y >= 360 )
 			{
 				initialPosition.x = position.x;
