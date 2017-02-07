@@ -1,6 +1,6 @@
 ﻿  firstsfml.cpp
-c:\physics-practical6\firstsfml\firstsfml.cpp(155): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\physics-practical6\firstsfml\firstsfml.cpp(185): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\physics-practical6\firstsfml\firstsfml.cpp(187): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-  firstsfml.vcxproj -> C:\Physics-Practical6\Debug\firstsfml.exe
-  firstsfml.vcxproj -> C:\Physics-Practical6\Debug\firstsfml.pdb (Full PDB)
+g:\physics-practical6\firstsfml\firstsfml.cpp(186): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+g:\physics-practical6\firstsfml\firstsfml.cpp(216): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+g:\physics-practical6\firstsfml\firstsfml.cpp(218): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  firstsfml.vcxproj -> G:\Physics-Practical6\Debug\firstsfml.exe
+  firstsfml.vcxproj -> G:\Physics-Practical6\Debug\firstsfml.pdb (Full PDB)

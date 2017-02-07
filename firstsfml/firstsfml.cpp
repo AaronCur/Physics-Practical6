@@ -12,8 +12,8 @@ int main()
 	
 	
 	double timeTaken = 0;
-	float initialVelocityY = 0.0f;
-	float initialVelocityX = 0.0f;
+	float initialVelocityY = 1.0f;
+	float initialVelocityX = 1.0f;
 	
 
 	float distanceX = 0.0f;
@@ -22,6 +22,7 @@ int main()
 	float maxDistance = 0.0f;
 	float degrees = 0.0f;
 	float radians = 0.0f;
+	float force = 0.0f;
 	
 	bool printHeight = false;
 	bool timing = false;
@@ -93,27 +94,34 @@ int main()
 		//update every 60th of a second
 		//only when the time since last update is greate than 1/60 update the world.
 
+		/// <summary>
+		/// </summary>
+		/// <returns></returns>
 		if (timeSinceLastUpdate > timePerFrame)
 		{
-			/*velocityRes = sqrt((initialVelocityX * initialVelocityX) + (initialVelocityY * initialVelocityY));
+			//velocityRes = sqrt((initialVelocityX * initialVelocityX) + (initialVelocityY * initialVelocityY));
 
-			radians = atan2(initialVelocityX, initialVelocityY);
-			degrees = (radians * (180 / 3.14159265359) - 90);
+			/*radians = atan2(initialVelocityY, initialVelocityX);
+			degrees = (radians * (180 / 3.14159265359));*/
 
+			initialVelocityX = force * cos(degrees);
+			initialVelocityY = force * sin(degrees);
 			
-			*/
 
-			radians = atan2(velocityRes.x, velocityRes.y);
+		/*	radians = atan2(velocityRes.x, velocityRes.y);
 			degrees = (radians * (180 / 3.14159265359) - 90);
 
 			velocityRes.y = degrees * atan (initialVelocityY);
-			velocityRes.x = degrees * atan(initialVelocityY);
+			velocityRes.x = degrees * atan(initialVelocityY);*/
 
-			if (degrees > 0)
-			{
-				std::cout << "Angle" << degrees << std::endl;
-			}
 			
+			
+				std::cout << "Angle" << degrees << std::endl;
+				std::cout << "Force" << force << std::endl;
+				std::cout << "InitialY" << initialVelocityY << std::endl;
+				std::cout << "Initialx" << initialVelocityX << std::endl;
+			
+			//std::cout << "Velocity" << initialVelocityY << std::endl;
 
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::R))
 			{
@@ -129,12 +137,12 @@ int main()
 			}*/
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Y))
 			{
-				degrees++;
+				degrees--;
 
 			}
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::U))
 			{
-				degrees--;
+				degrees++;
 
 			}
 
@@ -145,17 +153,19 @@ int main()
 
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::V))
 			{
-				velocityRes++;
+				force--;
 			}
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::B))
 			{
-				velocityRes--;
+				force++;
 			}
 			
+		
+
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && position.y >= 398 && timing == false && bounce == false )
 			{
 				initialPosition.y = position.y;
-				velocity.y = velocity.y + initialVelocityY;
+				velocity.y = velocity.y - initialVelocityY;
 
 				initialPosition.x = position.x;
 				velocity.x = velocity.x + initialVelocityX;
