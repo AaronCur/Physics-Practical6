@@ -38,7 +38,7 @@ int main()
 	double timeSinceLast = 0.0;
 	double startPosition = 400;
 	// setup any shapes or variables.
-	sf::RectangleShape player(sf::Vector2f(20,20));
+	sf::CircleShape player(10);
 	sf::Vertex line[] =
 	{
 		sf::Vertex(sf::Vector2f(0, 420)),
@@ -57,7 +57,7 @@ int main()
 	float pixelsToMeters = 20;
 	sf::Vector2f gravity(0.0f, 9.8f*pixelsToMeters);
 	sf::Vector2f acceleration(0.0f, 0.0f);
-	sf::Vector2f velocityRes(0.0f, 0.0f);
+	sf::Vector2f initialVelocity(0.0f, 0.0f);
 	
 	
 	//Load font
@@ -101,11 +101,10 @@ int main()
 		{
 			//velocityRes = sqrt((initialVelocityX * initialVelocityX) + (initialVelocityY * initialVelocityY));
 
-			/*radians = atan2(initialVelocityY, initialVelocityX);
-			degrees = (radians * (180 / 3.14159265359));*/
+			
+			
 
-			initialVelocityX = force * cos(degrees);
-			initialVelocityY = force * sin(degrees);
+			
 			
 
 		/*	radians = atan2(velocityRes.x, velocityRes.y);
@@ -118,17 +117,20 @@ int main()
 			
 				std::cout << "Angle" << degrees << std::endl;
 				std::cout << "Force" << force << std::endl;
-				std::cout << "InitialY" << initialVelocityY << std::endl;
-				std::cout << "Initialx" << initialVelocityX << std::endl;
 			
-			//std::cout << "Velocity" << initialVelocityY << std::endl;
 
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::R))
-			{
+			{	
+				bounce = false;
+				slideRight = false;
+				timing = false;
+				degrees = 0;
+				force = 0;
 				velocity.y = 0;
 				velocity.x = 0;
 				position.x = 150;
 				position.y = 398;
+				
 			}
 			/*if (sf::Keyboard::isKeyPressed(sf::Keyboard::Y) )
 			{
@@ -138,26 +140,27 @@ int main()
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Y))
 			{
 				degrees--;
+				radians = (degrees * (3.14159265359 / 180));
 
 			}
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::U))
 			{
 				degrees++;
-
+				radians = (degrees * (3.14159265359 / 180));
 			}
 
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::X))
-			{
-				initialVelocityX++;
-			}
 
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::V))
 			{
 				force--;
+				initialVelocity.x = force * cos(radians);
+				initialVelocity.y = force * sin(radians);
 			}
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::B))
 			{
 				force++;
+				initialVelocity.x = force * cos(radians);
+				initialVelocity.y = force * sin(radians);
 			}
 			
 		
@@ -165,10 +168,10 @@ int main()
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && position.y >= 398 && timing == false && bounce == false )
 			{
 				initialPosition.y = position.y;
-				velocity.y = velocity.y - initialVelocityY;
+				velocity.y = velocity.y - initialVelocity.y;
 
 				initialPosition.x = position.x;
-				velocity.x = velocity.x + initialVelocityX;
+				velocity.x = velocity.x + initialVelocity.x;
 				timing = true;
 				slideRight = true;
 				bounce = true;
