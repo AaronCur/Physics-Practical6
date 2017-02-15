@@ -1,14 +1,13 @@
 ﻿  Project6.cpp
-c:\users\public\documents\visual studio 2015\projects\mathphys - project6\mathphys - project6\project6.cpp(216): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\users\public\documents\visual studio 2015\projects\mathphys - project6\mathphys - project6\project6.cpp(230): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\users\public\documents\visual studio 2015\projects\mathphys - project6\mathphys - project6\project6.cpp(301): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\users\public\documents\visual studio 2015\projects\mathphys - project6\mathphys - project6\project6.cpp(327): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\users\public\documents\visual studio 2015\projects\mathphys - project6\mathphys - project6\project6.cpp(329): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\users\public\documents\visual studio 2015\projects\mathphys - project6\mathphys - project6\project6.cpp(433): warning C4305: 'argument': truncation from 'double' to 'float'
-c:\users\public\documents\visual studio 2015\projects\mathphys - project6\mathphys - project6\project6.cpp(439): warning C4305: 'argument': truncation from 'double' to 'float'
-c:\users\public\documents\visual studio 2015\projects\mathphys - project6\mathphys - project6\project6.cpp(445): warning C4305: 'argument': truncation from 'double' to 'float'
-c:\users\public\documents\visual studio 2015\projects\mathphys - project6\mathphys - project6\project6.cpp(451): warning C4305: 'argument': truncation from 'double' to 'float'
-c:\users\public\documents\visual studio 2015\projects\mathphys - project6\mathphys - project6\project6.cpp(457): warning C4305: 'argument': truncation from 'double' to 'float'
-c:\users\public\documents\visual studio 2015\projects\mathphys - project6\mathphys - project6\project6.cpp(463): warning C4305: 'argument': truncation from 'double' to 'float'
-  MathPhys - Project6.vcxproj -> C:\Users\Public\Documents\visual studio 2015\Projects\MathPhys - Project6\Debug\MathPhys - Project6.exe
-  MathPhys - Project6.vcxproj -> C:\Users\Public\Documents\visual studio 2015\Projects\MathPhys - Project6\Debug\MathPhys - Project6.pdb (Partial PDB)
+g:\physics-practical6\mathphys - project6\project6.cpp(207): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+g:\physics-practical6\mathphys - project6\project6.cpp(220): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+g:\physics-practical6\mathphys - project6\project6.cpp(284): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+g:\physics-practical6\mathphys - project6\project6.cpp(292): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+g:\physics-practical6\mathphys - project6\project6.cpp(370): warning C4305: 'argument': truncation from 'double' to 'float'
+g:\physics-practical6\mathphys - project6\project6.cpp(376): warning C4305: 'argument': truncation from 'double' to 'float'
+g:\physics-practical6\mathphys - project6\project6.cpp(382): warning C4305: 'argument': truncation from 'double' to 'float'
+g:\physics-practical6\mathphys - project6\project6.cpp(388): warning C4305: 'argument': truncation from 'double' to 'float'
+g:\physics-practical6\mathphys - project6\project6.cpp(394): warning C4305: 'argument': truncation from 'double' to 'float'
+g:\physics-practical6\mathphys - project6\project6.cpp(400): warning C4305: 'argument': truncation from 'double' to 'float'
+  MathPhys - Project6.vcxproj -> G:\Physics-Practical6\Debug\MathPhys - Project6.exe
+  MathPhys - Project6.vcxproj -> G:\Physics-Practical6\Debug\MathPhys - Project6.pdb (Partial PDB)

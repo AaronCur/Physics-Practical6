@@ -31,7 +31,13 @@
 #include <sstream>
 #include <string.h>
 
-
+/// <summary>
+/// 
+/// Physics system that demonstrates a particle being fired with an angle and force
+/// Clculates the x and y component of the velocity with respcet to angle
+/// Particel bounces in the x and y direction until it stops
+/// 
+/// </summary>
 
 
 ////////////////////////////////////////////////////////////
@@ -44,14 +50,9 @@ int main()
 	//create Window
 	sf::RenderWindow window(sf::VideoMode(800, 800), "First Graphics in C++");
 
-
-
 	double timeTaken = 0;
 	float timeInAir = 0;
-	float initialVelocityY = 1.0f;
-	float initialVelocityX = 1.0f;
-
-
+	sf::Text m_text;
 	float distanceX = 0.0f;
 	float distanceY = 0.0f;
 	float maxHeight = 0.0f;
@@ -82,12 +83,10 @@ int main()
 		sf::Vertex(sf::Vector2f(800, 420))
 	};
 
-
-
 	player.setFillColor(sf::Color::Red);
 
 	sf::Vector2f velocity(0, 0);
-	sf::Vector2f position(150, 398);
+	sf::Vector2f position(50, 398);
 	sf::Vector2f initialPosition(0, 0);
 
 	//For use in games
@@ -127,6 +126,7 @@ int main()
 	m_ForceText.setFont(m_font);
 
 	m_MaxHeight.setFont(m_font);
+	m_text.setFont(m_font);
 	m_TimeInAir.setFont(m_font);
 	m_DistanceX.setFont(m_font);
 	m_Angle.setFont(m_font);
@@ -160,9 +160,6 @@ int main()
 				window.close();
 		}
 
-
-
-
 		//get the time since last update and restart the clock
 		timeSinceLastUpdate += clock.restart();
 
@@ -175,9 +172,7 @@ int main()
 		if (timeSinceLastUpdate > timePerFrame)
 		{
 
-
-
-
+			//Reset the variables
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::R) && reset == false)
 			{
 				bounce = false;
@@ -187,7 +182,7 @@ int main()
 				force = 0;
 				velocity.y = 0;
 				velocity.x = 0;
-				position.x = 150;
+				position.x = 50;
 				position.y = 398;
 				distanceY = 0;
 				maxHeight = 0;
@@ -195,47 +190,39 @@ int main()
 				m_sAngle.str("");
 				m_sAngle << 0;
 				m_sDistanceX.str("");
-				
 				m_sMaxHeight.str("");
-				
 				m_sForce.str("");
 				m_sForce << 0;
 				m_sTimeInAir.str("");
-				
-				
-			}
-			
-
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Y))
-			{
-				if (degrees > 0 && degrees <= 90)
-				{
-					degrees--;
-				}
-				
-				radians = (degrees * (3.14159265359 / 180));
-				std::cout << "Angle" << degrees << std::endl;
-
-				m_sAngle.str("");
-				m_sAngle << degrees;
 
 			}
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::U))
+			//Key press to increase angle
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::U) && bounce == false)
 			{
-				if (degrees >= 0 && degrees < 90)
+				if (degrees >=0 && degrees < 90)
 				{
 					degrees++;
 				}
 				
 				radians = (degrees * (3.14159265359 / 180));
-				std::cout << "Angle" << degrees << std::endl;
 				m_sAngle.str("");
 				m_sAngle << degrees;
 
 			}
-
-
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::V))
+			//Key press to decrease angle
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Y) && bounce == false)
+			{
+				if (degrees >0 && degrees <= 90)
+				{
+					degrees--;
+				}
+				
+				radians = (degrees * (3.14159265359 / 180));
+				m_sAngle.str("");
+				m_sAngle << degrees;
+			}
+			//Key press to decrease force
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::V) && bounce == false)
 			{
 				if (force > 0)
 				{
@@ -244,13 +231,11 @@ int main()
 				
 				initialVelocity.x = force * cos(radians);
 				initialVelocity.y = force * sin(radians);
-
-				std::cout << "Force" << force << std::endl;
-
 				m_sForce.str("");
 				m_sForce << force;
 			}
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::B))
+			//Key press to increase force
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::B) && bounce == false)
 			{
 
 				if (force >=0)
@@ -261,26 +246,21 @@ int main()
 				initialVelocity.x = force * cos(radians);
 				initialVelocity.y = force * sin(radians);
 
-				std::cout << "Force" << force << std::endl;
-
 				m_sForce.str("");
 				m_sForce << force;
 			}
 
-
-
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && position.y >= 398 && timing == false && bounce == false)
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && position.y >= 398 && bounce == false)
 			{
 				initialPosition.y = position.y;
 				velocity.y = velocity.y - initialVelocity.y;
 
 				initialPosition.x = position.x;
 				velocity.x = velocity.x + initialVelocity.x;
-				timing = true;
 				slideRight = true;
 				bounce = true;
 			}
-
+			//To calculate max height of projectile
 			distanceY = position.y - initialPosition.y;
 
 			if (maxHeight > distanceY + 0.1)
@@ -288,53 +268,32 @@ int main()
 				maxHeight = distanceY;
 			}
 
+			//Calculates how much energy is lost in bounce
 			if (bounce == true)
 			{
 				if (position.y >= 400)
 				{
 					velocity.y = velocity.y * -0.6f;
+					acceleration.x = -0.8*9.81* (velocity.x / sqrt((velocity.x * velocity.x) + (velocity.y * velocity.y)));
+					std::cout << "friction" << std::endl;
 					position.y = 400;
+					
 				}
 
 				velocity.y = velocity.y + gravity.y * timeSinceLastUpdate.asSeconds();
 				// update position and velocity here using equations in lab sheet using timeChange as  timeSinceLastUpdate.asSeconds().
 				position.y = position.y + velocity.y * timeSinceLastUpdate.asSeconds() + 0.5 * gravity.y *(timeSinceLastUpdate.asSeconds() * timeSinceLastUpdate.asSeconds());
-
-				distanceY = position.y - initialPosition.y;
-
 			}
-			/*	if (position.y >= 402)
-			{
-
-			std::cout << "Stop" << std::endl;
-			bounce = false;
-			}*/
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::X) && position.x >= 0 && position.x < 800 && slideRight == false && position.y >= 360)
-			{
-				initialPosition.x = position.x;
-				//velocity.x = 60.0f;
-				velocity.x = velocity.x + 2;
-				slideRight = true;
-				timing = true;
-			}
-
-
+			
 			//// update position and velocity here using equations in lab sheet using timeChange as  timeSinceLastUpdate.asSeconds().
 			if (slideRight == true && position.x >= 1 && position.x < 765)
 			{
 				if (slideRight == true)
 				{
-					acceleration.x = -0.8*9.81* (velocity.x / sqrt((velocity.x * velocity.x) + (velocity.y * velocity.y)));
-					//velocity.x = velocity.x * 0.01f;
 					position.x = position.x + velocity.x * timeSinceLastUpdate.asSeconds() + 0.5 * acceleration.x *(timeSinceLastUpdate.asSeconds() * timeSinceLastUpdate.asSeconds());
 					velocity.x = velocity.x + acceleration.x * timeSinceLastUpdate.asSeconds();
 
 					distanceX = position.x - initialPosition.x;
-				}
-
-				if (maxDistance < distanceX)
-				{
-					//maxHeight = distanceX;
 				}
 
 			}
@@ -345,51 +304,28 @@ int main()
 				velocity.x = 0;
 			}
 
-			/*if (timing == true)
-			{
-				timeTaken += timeSinceLastUpdate.asSeconds();
-
-
-			}*/
-			if (timing == false)
-			{
-				timeTaken = 0;
-			}
-
+			//Calculates time in the air
 			if (position.y < 398)
 			{
 				timeInAir += timeSinceLastUpdate.asSeconds();
-				std::cout << "Time in air " << timeInAir << std::endl;
-
+	
 				m_sTimeInAir.str("");
 				m_sTimeInAir << timeInAir;
 			}
-
+			
 			if (velocity.x > 0)
 			{
 				m_sDistanceX.str("");
 				m_sDistanceX << distanceX;
 			}
 			
-			/*if (slideRight == true && velocity.x < 0.1)
+			//To display max height
+			if (bounce == true && velocity.y >= 0 && position.y < 398)
 			{
-
-				std::cout << "Distance X: " << distanceX << std::endl;
-				
-				m_sDistanceX.str("");
-				m_sDistanceX << distanceX;
-
-				slideRight = false;
-				timing = false;
-			}*/
-			if (bounce == true && velocity.y >= 0 && position.y < 360)
-			{
-
 				count = count + 1;
-
+				//Only output max height once
 				if (count == 1)
 				{
-					std::cout << "Max Height: " << -maxHeight << std::endl;
 
 					m_sMaxHeight.str("");
 					m_sMaxHeight << -maxHeight;
@@ -404,6 +340,8 @@ int main()
 			window.clear();
 
 			//Text objects are drawn when the game is playing
+
+			//Bunch od banter to output info to the screen
 			m_AngleText.setString(": Angle");
 			m_AngleText.setPosition(700, 40);
 			m_AngleText.setScale(1, 1);
@@ -463,7 +401,6 @@ int main()
 			m_MaxHeight.setScale(0.85, 0.85);
 			m_MaxHeight.setColor(sf::Color::Cyan);
 			window.draw(m_MaxHeight);
-			
 
 			window.draw(player);
 			window.draw(line, 2, sf::Lines);
